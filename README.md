@@ -72,6 +72,9 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Marlon Basten](https://github.com/marlonbasten)
+- [All contributors](../../contributors)
+
+This package was inspired by [Freek Van der Herten](https://github.com/freekmurze)
 
 ## License
 
