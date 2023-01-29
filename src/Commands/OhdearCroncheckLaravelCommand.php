@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Marlonbasten\OhdearCroncheckLaravel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class OhdearCroncheckLaravelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'ohdear-croncheck-laravel';
 
     public $description = 'My command';
 
