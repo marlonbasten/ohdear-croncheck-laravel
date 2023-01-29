@@ -3,8 +3,8 @@
 namespace Marlonbasten\OhdearCroncheckLaravel\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Marlonbasten\OhdearCroncheckLaravel\OhdearCroncheckLaravelServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

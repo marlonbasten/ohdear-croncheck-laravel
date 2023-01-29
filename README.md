@@ -5,15 +5,14 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/marlonbasten/ohdear-croncheck-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/marlonbasten/ohdear-croncheck-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/marlonbasten/ohdear-croncheck-laravel.svg?style=flat-square)](https://packagist.org/packages/marlonbasten/ohdear-croncheck-laravel)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Monitoring cronjobs with OhDear made easy! Just register your commands in a service provider.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/ohdear-croncheck-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/ohdear-croncheck-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+```php
+public function boot(): void
+{
+    OhDearCron::register(TestCommand::class, 'id');
+}
+```
 
 ## Installation
 
@@ -21,13 +20,6 @@ You can install the package via composer:
 
 ```bash
 composer require marlonbasten/ohdear-croncheck-laravel
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="ohdear-croncheck-laravel-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,27 +32,30 @@ This is the contents of the published config file:
 
 ```php
 return [
+    // If false, cronjobs will always be sent to OhDear
+    'only_in_prod' => true,
+    // The ping URL for OhDear (https://ohdear.app/docs/features/cron-job-monitoring#php)
+    'ohdear_url' => 'https://ping.ohdear.app',
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="ohdear-croncheck-laravel-views"
 ```
 
 ## Usage
 
+Register the command you want to monitor with OhDear in any service provider using the Facade.
+
 ```php
-$ohdearCroncheckLaravel = new Marlonbasten\OhdearCroncheckLaravel();
-echo $ohdearCroncheckLaravel->echoPhrase('Hello, Marlonbasten!');
+public function boot(): void
+{
+    \Marlonbasten\OhdearCroncheckLaravel\Facades\OhDearCron::register(TestCommand::class, 'id');
+}
 ```
 
-## Testing
+The `id` is the last part of your ping URL you get on OhDear.
 
-```bash
-composer test
-```
+![img.png](img.png)
+
+<b>That's it!</b> Now every time the command runs, OhDear will receive a ping.<br />
+The package will also send the exit code and the runtime of the command to OhDear.
 
 ## Changelog
 
@@ -77,7 +72,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Marlon Basten](https://github.com/marlonbasten)
-- [All Contributors](../../contributors)
 
 ## License
 
