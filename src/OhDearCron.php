@@ -12,8 +12,6 @@ class OhDearCron
 
     /**
      * @param  class-string  $className
-     * @param  string  $id
-     * @return void
      *
      * @throws ProvidedClassIsNotACommandException
      */
@@ -22,7 +20,7 @@ class OhDearCron
         $commandClass = new $className;
 
         if (! $commandClass instanceof Command) {
-            throw new ProvidedClassIsNotACommandException();
+            throw new ProvidedClassIsNotACommandException;
         }
 
         $this->registered[$commandClass->getName()] = [
